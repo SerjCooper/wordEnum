@@ -3,20 +3,39 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        EnumWords ew = new EnumWords();     //создаем экземпляр класса для поиска слова и знаков препинания
+
         Scanner input = new Scanner(System.in);
 
+        String filePath = null;
+        String fieldTarget = null;
+        String wordTarget = null;
+
+        System.out.println("Укажите путь к файлу .json:" );
+        filePath = input.nextLine();
+        if(filePath.contentEquals("-d")) {
+            System.out.println("Используется файл по умолчанию файл");
+            filePath = "./src/main/resources/generated.json";
+        }
+
+        System.out.println("Поле для сканирования: ");
+        fieldTarget = input.nextLine();
+        if(fieldTarget.contentEquals("-d")) {
+            System.out.println("Поиск по умолчанию по полю: greeting ");
+            fieldTarget = "greeting";
+        }
+
         System.out.println("Введите искомое слово: ");
-        String wordTarget = input.nextLine();
+        wordTarget = input.nextLine();
+        if(wordTarget.contentEquals("-d")) {
+            System.out.println("Поиск по умолчанию: hello ");
+            wordTarget = "hello";
+        }
 
-        String filepath = "./src/main/resources/generated.json";
+        EnumWords ew = new EnumWords();     //создаем экземпляр класса для поиска слова и знаков препинания
 
-        ew.readJson(filepath);
-        System.out.println("Читаем файл...");
-        ew.searchWord(ew.getMessage(), wordTarget);
-        System.out.println("Слово " + wordTarget + " повторяется " + ew.getWordCount() + " раз");
+        ew.readJsonField(filePath, fieldTarget);
+        ew.searchWord(wordTarget);
+        ew.searchSimbols();
 
-        ew.searchSimbols(ew.getMessage());
-        System.out.println("Количество знаков препинания в файле: " + ew.getSimbolCount());
     }
 }
