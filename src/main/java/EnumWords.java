@@ -6,11 +6,12 @@ import com.google.gson.*;
 public class EnumWords {
 
     private String message;
+    private String[] arrMessage;
 
     public String readJsonField(String filePath, String fieldTarget) { //метод для чтения json
         message = null;
         JsonParser parser = new JsonParser();
-        String elements[] = new String[10];
+        String elements[] = new String[100];
         int i = 0;
         try {
             System.out.println("Читаем файл...");
@@ -22,6 +23,7 @@ public class EnumWords {
                 message = message + elements[i] + "\n"; //пишем в поле message полученную строку из всего содержимого полей greeting
                 i++;
             }
+            arrMessage = elements;
             return message;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -67,6 +69,27 @@ public class EnumWords {
             return -1;
         }
     }
+
+    public void compareStrings(int index1, int index2) {
+        if(message != null) {
+            if (index1 >= 0 && index1 <= arrMessage.length - 1 && index2 >= 0 && index2 <= arrMessage.length - 1) {
+                String[] str1 = arrMessage[index1].split(" ");
+                String[] str2 = arrMessage[index2].split(" ");
+                for (int i = 0; i < str1.length; i++) {
+                    int n = 0;
+                    for (int k = 0; k < str2.length; k++)
+                        if (str1[i].equalsIgnoreCase(str2[k])) n++;
+                    if (n == 0) {
+                        System.out.println(str1[i]);
+                    }
+                }
+            }else{
+                System.out.println("Индексы заданы неверно");
+            }
+        }
+    }
+
+
 
 
 }
