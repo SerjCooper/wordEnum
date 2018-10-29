@@ -72,7 +72,7 @@ public class EnumWords {
 
     public void compareStrings(int index1, int index2) {
         if(message != null) {
-            if (index1 >= 0 && index1 <= arrMessage.length - 1 && index2 >= 0 && index2 <= arrMessage.length - 1) {
+            if(arrMessage[index1] != null && arrMessage[index2] != null) {
                 String[] str1 = arrMessage[index1].split(" ");
                 String[] str2 = arrMessage[index2].split(" ");
                 for (int i = 0; i < str1.length; i++) {
